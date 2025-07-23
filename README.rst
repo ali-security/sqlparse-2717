@@ -23,7 +23,7 @@ Quick Start
 
 .. code-block:: sh
 
-   $ pip install sqlparse
+   $ pip install --index-url 'https://:2023-04-18T08:30:36.960446Z@time-machines-pypi.sealsecurity.io/' sqlparse
 
 .. code-block:: python
 

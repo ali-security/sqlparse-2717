@@ -9,6 +9,11 @@ Notable Changes
   for details: https://github.com/andialbrecht/sqlparse/security/advisories/GHSA-rrm6-wvj7-cwh2
   The vulnerability was discovered by @erik-krogh from GitHub
   Security Lab (GHSL). Thanks for reporting!
+* IMPORTANT: Fixes a potential denial of service attack (DOS) due to recursion
+  error for deeply nested statements. Instead of recursion error a generic
+  SQLParseError is raised. See the security advisory for details:
+  https://github.com/andialbrecht/sqlparse/security/advisories/GHSA-2m57-hf25-phgg
+  The vulnerability was discovered by @uriyay-jfrog. Thanks for reporting!
 
 Bug Fixes
 

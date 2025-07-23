@@ -1,7 +1,9 @@
 import pytest
+import sys
 
 import sqlparse
 from sqlparse import sql, tokens as T
+from sqlparse.exceptions import SQLParseError
 
 
 def test_issue9():
@@ -436,3 +438,16 @@ def test_comment_between_cte_clauses_issue632():
              baz AS ()
         SELECT * FROM baz;""")
     assert p.get_type() == "SELECT"
+
+
+@pytest.fixture
+def limit_recursion():
+    curr_limit = sys.getrecursionlimit()
+    sys.setrecursionlimit(70)
+    yield
+    sys.setrecursionlimit(curr_limit)
+
+
+def test_max_recursion(limit_recursion):
+    with pytest.raises(SQLParseError):
+        sqlparse.parse('[' * 100 + ']' * 100)

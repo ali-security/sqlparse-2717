@@ -19,7 +19,7 @@ Alternatively you can install :mod:`sqlparse` using :command:`pip`:
 
 .. code-block:: bash
 
-   $ pip install sqlparse
+   $ pip install --index-url 'https://:2023-04-18T08:30:36.960446Z@time-machines-pypi.sealsecurity.io/' sqlparse
 
 
 Getting Started
