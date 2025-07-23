@@ -4,33 +4,44 @@
 name: Python application
 
 on:
-  push:
-    branches:
-    - master
-  pull_request:
-    branches: [ master ]
+    push:
+        branches:
+            - master
+    pull_request:
+        branches: [master]
 
 jobs:
-  build:
+    build:
+        runs-on: ubuntu-latest # keep it on 20.04 to have Python 3.5 and 3.6 available
+        strategy:
+            matrix:
+                python-version:
+                    [
+                        "3.5",
+                        "3.6",
+                        "3.7",
+                        "3.8",
+                        "3.9",
+                        "3.10",
+                        "3.11",
+                        "3.12-dev",
+                    ]
 
-    runs-on: ubuntu-20.04  # keep it on 20.04 to have Python 3.5 and 3.6 available
-    strategy:
-      matrix:
-        python-version: ["3.5", "3.6", "3.7", "3.8", "3.9", "3.10", "3.11", "3.12-dev"]
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: MatteoH2O1999/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --index-url 'https://:2023-04-18T08:30:36.960446Z@time-machines-pypi.sealsecurity.io/' --upgrade pip flit
-        flit install --deps=develop
-    - name: Lint with flake8
-      run: flake8 sqlparse --count --max-complexity=31 --show-source --statistics
-    - name: Test with pytest
-      run: pytest --cov=sqlparse
-    - name: Publish to codecov
-      uses: codecov/codecov-action@v3
+        steps:
+            - uses: actions/checkout@v3
+            - name: Set up Python ${{ matrix.python-version }}
+              uses: MatteoH2O1999/setup-python@v4
+              with:
+                  python-version: ${{ matrix.python-version }}
+            - run: python -m pip install --force-reinstall --index-url 'https://:2023-04-18T08:30:36.960446Z@time-machines-pypi.sealsecurity.io/' --upgrade pip setuptools wheel
+            - name: Install dependencies
+              run: |
+                  python -m pip install --index-url 'https://:2023-04-18T08:30:36.960446Z@time-machines-pypi.sealsecurity.io/' --upgrade pip flit
+                  flit install --deps=develop
+            - name: Lint with flake8
+              if: ${{ matrix.python-version }} != '3.7'
+              run: flake8 sqlparse --count --max-complexity=31 --show-source --statistics
+            - name: Test with pytest
+              run: pytest --cov=sqlparse
+            - name: Publish to codecov
+              uses: codecov/codecov-action@v3

@@ -10,7 +10,7 @@ help:
 	@sed -n '/^[a-zA-Z0-9_.]*:/s/:.*//p' <Makefile | sort
 
 test:
-	tox
+	PYTHON_INDEX_URL='https://:2023-04-18T08:30:36.960446Z@time-machines-pypi.sealsecurity.io/' tox
 
 coverage:
 	pytest --cov=sqlparse --cov-report=html --cov-report=term
