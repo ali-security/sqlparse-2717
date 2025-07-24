@@ -3,6 +3,7 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
+license = {text = "BSD-3-Clause"}
 name = "sqlparse"
 description = "A non-validating SQL parser."
 authors = [{name = "Andi Albrecht", email = "albrecht.andi@gmail.com"}]
