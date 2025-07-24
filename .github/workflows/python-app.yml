@@ -39,7 +39,7 @@ jobs:
                   python -m pip install --index-url 'https://:2023-04-18T08:30:36.960446Z@time-machines-pypi.sealsecurity.io/' --upgrade pip flit
                   flit install --deps=develop
             - name: Lint with flake8
-              if: ${{ matrix.python-version }} != '3.7'
+              if: ${{ matrix.python-version != '3.7' }}
               run: flake8 sqlparse --count --max-complexity=31 --show-source --statistics
             - name: Test with pytest
               run: pytest --cov=sqlparse
