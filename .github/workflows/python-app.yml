@@ -45,3 +45,9 @@ jobs:
               run: pytest --cov=sqlparse
             - name: Publish to codecov
               uses: codecov/codecov-action@v3
+            - name: Build
+              run: make release
+            - uses: actions/upload-artifact@v4
+              with:
+                name: artifacts
+                path: ./dist/*
