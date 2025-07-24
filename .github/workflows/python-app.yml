@@ -48,6 +48,7 @@ jobs:
             - name: Build
               run: make release
             - uses: actions/upload-artifact@v4
-              with:
+              with:                
                 name: artifacts
                 path: ./dist/*
+                merge-multiple: true
